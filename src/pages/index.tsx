@@ -7,11 +7,6 @@ export default function Home() {
     <Flex direction="column" h="100vh">
       <Header />
 
-      <Flex w="100%" maxWidth={1480} px="500" mx="center" mt="50" >
-        <Text fontSize="xl">Cardápio desenvolvido especialmente para você!</Text>
-        </Flex> 
-
-
       <Produtos /> 
 
       
