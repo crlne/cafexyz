@@ -1,30 +1,35 @@
-import { Box, Button, Flex, Image, SimpleGrid, Text, Textarea } from "@chakra-ui/react";
+import { Box, Button, Flex, Heading, Image, SimpleGrid, Text, Textarea } from "@chakra-ui/react";
+import React from "react";
+import ButtonCart from "../components/ButtonCart";
+
 import Quantity from "../components/quantity";
+
+
 
 export default function Payment() {
     return (
-    <Flex w="100%" maxWidth={1480} mx="center" mt="100" justify="center">
-
-
-        <SimpleGrid maxWidth={1480} flexDirection="column" minChildWidth="600px">
-        <Box mt="100" bg="yellow.100" w="200" height="550" borderRadius={10}>
-          <Image m="auto" mt="-120" align="center"h="260" src="http://pngimg.com/uploads/mug_coffee/mug_coffee_PNG97396.png"></Image>
-           <Text fontSize="3xl" fontWeight="bold" align="center">Double Expresso</Text>
-
-            <Quantity />
-            <Text ml="130" mt="-7" fontWeight="bold" fontSize="lg">R$ 5.90</Text>
-
-            <Flex maxW="400px" ml="200" m="auto" mt="10">
-            <Textarea placeholder="Observações:" />
-            </Flex>
-
+    <Flex w="100%" maxWidth={1480} mx="center" mt="100" justify="center" m="auto">
         
-            <Button w="200px" colorScheme="yellow" variant="outline" align="center" m="auto"mt="50" ml="200">
-                Comprar
-            </Button>
+        <SimpleGrid maxWidth={50} flexDirection="column">
+        <Box m="auto" mt="100" bg="white" borderRadius={10} height="166" w="752px">
+          <Image position="absolute" mt="8" ml="37" align="center"h="104" w="103" src="http://pngimg.com/uploads/mug_coffee/mug_coffee_PNG97396.png"></Image>
+           <Text fontSize="18" fontWeight="bold" ml="40" mt="10">Cappuccino</Text>
+           <Text ml="40" >Cremoso quentinho e gostoso, feito na hora.</Text>
 
+           <Text ml="177" fontSize="18" fontWeight="bold">16,58</Text>
+           <Heading as="h6" ml="40" mt="-5" size="xs">
+             R$
+            </Heading>
+
+            <Flex ml="230" mt="-50" >
+            <Quantity />
+            </Flex>         
         </Box>
         </SimpleGrid>
+
+        <ButtonCart />
+
     </Flex>
     );
 }
+
