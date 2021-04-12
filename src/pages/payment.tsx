@@ -3,6 +3,7 @@ import React from "react";
 import ButtonCart from "../components/ButtonCart";
 import { Header } from "../components/Header";
 
+import ButtonQuantity from "../components/buttonQuantity";
 import Quantity from "../components/quantity";
 
 
@@ -31,7 +32,7 @@ export default function Payment() {
             </Heading>
 
             <Flex ml="230" mt="-50" >
-            <Quantity />
+             <Quantity />
             </Flex>         
         </Box>
         </SimpleGrid>

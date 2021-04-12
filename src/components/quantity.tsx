@@ -1,31 +1,28 @@
-import { Button, ButtonGroup, Flex, HStack, Input, Text, useNumberInput } from '@chakra-ui/react'
-
-interface Input {
-    isReadOnly: string | boolean;
-}
+import { Button } from '@chakra-ui/react'
+import React, { useState } from "react"
+import styles from './button.module.css'
 
 export default function Quantity() {
-        const {
-          getInputProps,
-          getIncrementButtonProps,
-          getDecrementButtonProps,
-        } = useNumberInput({
-          step: 1,
-          defaultValue: 0,
-          min: 0,
-          max: 10,
-        })
-      
-        const inc = getIncrementButtonProps()
-        const dec = getDecrementButtonProps()
-        const input = getInputProps<Input>({ isReadOnly: true })
-      
-        return (
-        <ButtonGroup size="sm" isAttached maxW="150" ml="300"> 
-          <Button {...inc} borderRadius="50" color="black" bg="white" w="208" h="50" fontSize="20" >+</Button>
-          <Input {...input} variant="ghost" color="black" bg="white" w="208" h="50" textAlign="center" fontSize="20" />
-          <Button {...dec} color="black" bg="white" borderRadius="50" w="208" h="50" fontSize="3xl">-</Button>
-        </ButtonGroup>
+  const [num, setNum] = useState(0);
 
-        )
-      }
+    const increNum = () => {
+        setNum(num + 1);
+    };
+
+    const decreNum = () => {
+        if(num > 0) {
+        setNum(num - 1);
+        } else {
+        setNum(0);
+       }
+    };
+      
+     return (
+      <> 
+        <Button onClick={increNum} className={styles.increment} >+</Button>
+        <h1 className={styles.h1}>{num}</h1>
+        <Button onClick={decreNum} className={styles.Button}>-</Button>
+      </>
+
+    )
+}

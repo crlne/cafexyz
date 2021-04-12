@@ -1,13 +1,12 @@
 import { Box, Button, Heading, Image, SimpleGrid, Text } from "@chakra-ui/react";
 import Link from "next/link";
-import Quantity from "./quantity";
+
 
 
 
 export default function Produtos() {
- 
 
-    return (
+  return (
         <SimpleGrid maxWidth={1480} ml="50" flexDirection="column" minChildWidth="400px" px="8" mt="-200">
         <Box mt="200" p="8" bg="white" w="376px" height="462" borderRadius={10}>
           <Image m="auto" mt="-20" align="center" h="246px" w="242" src="http://pngimg.com/uploads/mug_coffee/mug_coffee_PNG97431.png"></Image>
