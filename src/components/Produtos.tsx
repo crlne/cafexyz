@@ -1,101 +1,84 @@
-import { Box, Button, Heading, Image, SimpleGrid, Text } from "@chakra-ui/react";
-import Link from "next/link";
+import { MdAddShoppingCart } from 'react-icons/md';
+import { Box, Button, Flex, Heading, Image, SimpleGrid, Text, Icon  } from "@chakra-ui/react"
+import React, { useEffect, useState } from 'react'
+import api from "../services/api";
+import Products from '../context/ProductsCart'
+import Cart from '../context/Cart'
 
+
+interface Product {
+  id: string;
+  title: string;
+  description: string;
+  price: number;
+  image: {
+    id: number;
+    url: string;
+  }[];
+ 
+}
+
+const PAGE_PRODUCTS = 'products';
+const PAGE_CART = 'cart';
 
 
 
 export default function Produtos() {
+  const [cart, setCart] = useState([]);
+  const [page, setPage] = useState(PAGE_PRODUCTS);
+  
+  const [products, setProducts] = useState<Product[]>([]);
+
+  
+  useEffect(() => {
+    api.get('/products').then(response => {
+      setProducts(response.data);
+    });
+  }, []);
+
+  if (products.length === 0) {
+    return <p>Carregando os produtos...</p>
+}
+
+  const addToCart = (product) => {
+    setCart([...cart, {...product }]);
+  };
+
+  const removeProducts = (productToRemove) => {
+    setCart(cart.filter ((product) => product !== productToRemove));
+  }
+ 
+  const navigateTo = (nextPage) => {
+    setPage(nextPage);
+  }
+
+  
+
 
   return (
-        <SimpleGrid maxWidth={1480} ml="50" flexDirection="column" minChildWidth="400px" px="8" mt="-200">
-        <Box mt="200" p="8" bg="white" w="376px" height="462" borderRadius={10}>
-          <Image m="auto" mt="-20" align="center" h="246px" w="242" src="http://pngimg.com/uploads/mug_coffee/mug_coffee_PNG97431.png"></Image>
-          
-          <Text fontSize="1rem">Double Expresso</Text>   
-            <h1>Lorem ipsum dolor iterable, consectetur adip</h1>
-            <Text fontSize="18" fontWeight="bold" ml="150"> 16,58</Text>
-            <Heading as="h6" mt="-5" size="xs" ml="130">
-             R$
-            </Heading>
+    <Flex direction="column">
+       <Button bg="orange" color="white" size="small"w="80px" h="50" align="center" ml="80%" mt="-300px" display="flex" position="absolute"
+       onClick={() => navigateTo(PAGE_CART)}
+       >
+         <MdAddShoppingCart size={16} color="#FFF" />
+         
+         ({cart.length})
+         </Button>
 
-           <Link href="/payment">
-           <Button colorScheme="orange" w="208px" h="50" borderRadius={50} m="auto" align="center" ml="50" mt="10"
-            >
-              Comprar
-            </Button> 
-           </Link>  
-        </Box>
+         <Button bg="orange" color="white" size="small"w="80px" h="50" ml="200" align="center" mt="-300px" display="flex" position="absolute"
+          onClick={() => navigateTo(PAGE_PRODUCTS)}
+          >
+            Voltar
+            </Button>
+
+        {page === PAGE_PRODUCTS && (
+        <Products addToCart={addToCart} />
+          )}
+        {page === PAGE_CART && (
+          <Cart cart={cart} removeProducts={removeProducts} />
+        )}
         
-
-        <Box mt="200" p="8" bg="white" w="376px" height="462" borderRadius={10}>
-          <Image m="auto" mt="-20" align="center" h="246px" w="242" src="http://pngimg.com/uploads/mug_coffee/mug_coffee_PNG97396.png"></Image>
-          
-          <Text fontSize="1rem">Double Expresso</Text>   
-            <h1>Lorem ipsum dolor iterable, consectetur adip</h1>
-            <Text fontSize="18" fontWeight="bold" ml="150"> 16,58</Text>
-            <Heading as="h6" mt="-5" size="xs" ml="130">
-             R$
-            </Heading>
-            <Button colorScheme="orange" w="208px" h="50" borderRadius={50} m="auto" align="center" ml="50" mt="10">Comprar</Button>   
-        </Box>
-
-        <Box mt="200" p="8" bg="white" w="376px" height="462" borderRadius={10}>
-          <Image m="auto" mt="-20" align="center" h="246px" w="242" src="http://pngimg.com/uploads/mug_coffee/mug_coffee_PNG16887.png"></Image>
-          
-            <Text fontSize="1rem">Double Expresso</Text>   
-            <h1>Lorem ipsum dolor iterable, consectetur adip</h1>
-            <Text fontSize="18" fontWeight="bold" ml="150"> 16,58</Text>
-            <Heading as="h6" mt="-5" size="xs" ml="130">
-             R$
-            </Heading>
-
-            <Button colorScheme="orange" w="208px" h="50" borderRadius={50} m="auto" align="center" ml="50" mt="10">Comprar</Button>   
-        </Box>
-
-
-
-        <Box mt="200" p="8" bg="white" w="376px" height="462" borderRadius={10}>
-          <Image m="auto" mt="-20" align="center" h="246px" w="242" src="http://pngimg.com/uploads/mug_coffee/mug_coffee_PNG16824.png"></Image>
-          
-           <Text fontSize="1rem">Double Expresso</Text>   
-            <h1>Lorem ipsum dolor iterable, consectetur adip</h1>
-            <Text fontSize="18" fontWeight="bold" ml="150"> 16,58</Text>
-            <Heading as="h6" mt="-5" size="xs" ml="130">
-             R$
-            </Heading>
-            <Button colorScheme="orange" w="208px" h="50" borderRadius={50} m="auto" align="center" ml="50" mt="10">Comprar</Button>   
-        </Box>
-
-
-        <Box mt="200" p="8" bg="white" w="376px" height="462" borderRadius={10}>
-          <Image m="auto" mt="-20" align="center" h="246px" w="242" src="http://pngimg.com/uploads/cappuccino/cappuccino_PNG37.png"></Image>
-          
-          <Text fontSize="1rem">Double Expresso</Text>   
-            <h1>Lorem ipsum dolor iterable, consectetur adip</h1>
-            <Text fontSize="18" fontWeight="bold" ml="150"> 16,58</Text>
-            <Heading as="h6" mt="-5" size="xs" ml="130">
-             R$
-            </Heading>
-            <Button colorScheme="orange" w="208px" h="50" borderRadius={50} m="auto" align="center" ml="50" mt="10">Comprar</Button>   
-        </Box>
-
-
-        <Box mt="200" p="8" bg="white" w="376px" height="462" borderRadius={10}>
-          <Image m="auto" mt="-20" align="center" h="246px" w="242" src="http://pngimg.com/uploads/mug_coffee/mug_coffee_PNG16856.png"></Image>
-          
-          <Text fontSize="1rem">Double Expresso</Text>   
-            <h1>Lorem ipsum dolor iterable, consectetur adip</h1>
-            <Text fontSize="18" fontWeight="bold" ml="150"> 16,58</Text>
-            <Heading as="h6" mt="-5" size="xs" ml="130">
-             R$
-            </Heading>
-            <Button colorScheme="orange" w="208px" h="50" borderRadius={50} m="auto" align="center" ml="50" mt="10">Comprar</Button>   
-        </Box>
-
-
-        
-        
-      </SimpleGrid>
+      </Flex>    
     );
-
+   
 }
